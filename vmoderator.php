@@ -245,9 +245,11 @@ function vm_add_post_column($columns) {
 	return $columns;
 }
 function vm_render_post_column($column_name, $id) {
-	$flags = get_post_meta($id, '_flags', TRUE);
-	if ($flags == '') $flags = "0";
-	echo $flags;
+	if ( 'vm_flag' == $column_name ) {
+		$flags = get_post_meta($id, '_flags', TRUE);
+		if ($flags == '') $flags = "0";
+		echo $flags;
+	}
 };
 /*                      End Functions                   */
 /*                       Actions                        */
