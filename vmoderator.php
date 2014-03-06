@@ -15,7 +15,7 @@ define('VMODR_URL',  plugin_dir_url(__FILE__));
 define('VMODR_PATH', plugin_dir_path(__FILE__));
 
 function vm_register() { //Action to be done on plugin activation
-	include (VMODR_PATH . "css.php");
+	include VMODR_PATH . "css.php";
 	$defaults = array(
 		//Default Virtual Moderator settings. Can be changed on vModerator settings.
 		'flags2removePost' => '10',
@@ -59,9 +59,9 @@ function vm_register() { //Action to be done on plugin activation
 }
 function vm_head() {
 	global $vms;
-	include (VMODR_PATH . "css.php");
+	include VMODR_PATH . "css.php";
 	style();
-	include (VMODR_PATH . "js.php");
+	include VMODR_PATH . "js.php";
 };
 function content_filter($content) {
 	global $vms;
@@ -114,19 +114,19 @@ function vms() { //adding the settings page
 };
 function vms_flag() { //Locate setting page
 	$display = 'flag';
-	include (VMODR_PATH . "vms.php");
+	include VMODR_PATH . "vms.php";
 };
 function vms_moderation() { //Locate setting page
 	$display = 'moderation';
-	include (VMODR_PATH . "vms.php");
+	include VMODR_PATH . "vms.php";
 };
 function vm_documentation() { //Locate setting page
 	$display = 'documentation';
-	include (VMODR_PATH . "vms.php");
+	include VMODR_PATH . "vms.php";
 };
 function vm_uninstall() { //Locate setting page
 	$display = 'uninstallation';
-	include (VMODR_PATH . "vms.php");
+	include VMODR_PATH . "vms.php";
 };
 function anti_publish() { //Prevent republishing of a spam post
 	global $post, $vms;
@@ -143,7 +143,7 @@ function on_publish($postid) {
 };
 function post_wp_loaded() { //Tasks list after wp is loaded
 	global $vmpath;
-	include (VMODR_PATH . "loaded.php");
+	include VMODR_PATH . "loaded.php";
 };
 function flag() {
 	global $post, $vms; //Displays the flag option
