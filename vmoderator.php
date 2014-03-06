@@ -177,7 +177,7 @@ function flagged() {
 };
 function flag_arya() { //Figures out what to show in flag arya.
 	global $post, $vms, $user;
-	if (($vms['traceCookie'] && chk_duplicate($post->ID, 'id', $_COOKIE['flagged-post-' . $post->ID])) || ($vms['traceIP'] && chk_duplicate($post->ID, 'ip', $ip)) || ($user != 0 && $vms['traceUser'] && chk_duplicate($post->ID, 'userID', $user))) {
+	if (($vms['traceCookie'] && ! empty( $_COOKIE['flagged-post-' . $post->ID] ) && chk_duplicate($post->ID, 'id', $_COOKIE['flagged-post-' . $post->ID])) || ($vms['traceIP'] && chk_duplicate($post->ID, 'ip', $ip)) || ($user != 0 && $vms['traceUser'] && chk_duplicate($post->ID, 'userID', $user))) {
 		return flagged();
 	} else {
 		return flag();
@@ -194,6 +194,7 @@ function vmoderator($classes = NULL) { //The function to display flag arya.
 		$classes = implode(' ', $classes);
 	};
 	$alevel = get_userdata($post->post_author)->user_level;
+	$die = FALSE;
 	if (in_category(explode(",", str_replace(' ', '', $vms['excCats'])))) {
 		$die = TRUE;
 	}

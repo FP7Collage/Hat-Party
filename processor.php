@@ -35,6 +35,7 @@ function vm_notify() {
 		wp_mail($to, $subject, $message, $headers);
 	};
 }
+$die = FALSE;
 if (get_post_type($v['post_id']) != 'post') $die = TRUE;
 if ($vms['flags2removePost'] == 0) $die = TRUE;
 if ($culevel < $vms['canFlag']) $die = TRUE;
@@ -45,7 +46,7 @@ if ($v['action'] == 'flag') {
 	if (in_array($author, explode(',', str_replace(" ", '', $vms['safeUsers'])))) $die = TRUE;
 	if (in_category(explode(",", str_replace(" ", "", $vms['excCats'])), $v['post_id'])) $die = TRUE;
 	if (get_post_meta($post->ID, '_flags') == 0) $die = FALSE;
-	if ($vms['traceCookie'] && chk_duplicate($post->ID, 'id', $_COOKIE['flagged-post-' . $v['post_id']])) $die = TRUE;
+	if ($vms['traceCookie'] && ! empty($_COOKIE['flagged-post-' . $v['post_id']]) &&chk_duplicate($post->ID, 'id', $_COOKIE['flagged-post-' . $v['post_id']])) $die = TRUE;
 	if ($vms['traceIP'] && chk_duplicate($v['post_id'], 'ip', $ip)) $die = TRUE;
 	if ($user != 0 && $vms['traceUser'] && chk_duplicate($v['post_id'], 'userID', $user)) $die = TRUE;
 	if (!$die) {
