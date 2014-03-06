@@ -1,7 +1,8 @@
 <?php
 function default_css() {
 	$vmpath = WP_PLUGIN_URL . '/' . str_replace(basename(__FILE__), "", plugin_basename(__FILE__));
-	return "//////////////////////////////////Start Here/////////////////////////////
+	return <<<CSS
+//////////////////////////////////Start Here/////////////////////////////
 .flag, .unflag {
 	border:none;
 	background-color:transparent;
@@ -16,7 +17,7 @@ function default_css() {
 	border:none;
 	background-color:transparent;
 	float:left;
-        cursor:pointer;
+		cursor:pointer;
 }
 
 .unflag {
@@ -27,7 +28,7 @@ function default_css() {
 	border:none;
 	background-color:transparent;
 	float:left;
-        cursor:pointer;
+		cursor:pointer;
 }
 
 .waitIcon{
@@ -54,13 +55,13 @@ function default_css() {
 }
 
 .unflagText-left, .waitText-left, .flagText-left {
-	background:url(" . $vmpath . "images/text-side.png);
+	background:url({$vmpath}images/text-side.png);
 	width:12px;
 	height:30px;
 	float:left;
 }
 .unflagText-right, .waitText-right, .flagText-right {
-	background:url(" . $vmpath . "images/text-side.png);
+	background:url({$vmpath}images/text-side.png);
 	background-repeat:no-repeat;
 	background-position:-15px;
 	height:30px;
@@ -69,17 +70,18 @@ function default_css() {
 }
 .unflagText-text, .flagText-text, .waitText-text {
 	display:inline-block;
-	background-image:url(" . $vmpath . "images/text-center.png);
+	background-image:url({$vmpath}images/text-center.png);
 	background-repeat:repeat-x;
 	height:30px;
 	background-position:center top;
-        color: green;
-        float: left;
-        font-weight: bold;
+	color: green;
+	float: left;
+	font-weight: bold;
 }
 .flag-arya-top{
 	float:right;
-}";
+}
+CSS;
 };
 function style() {
 	echo '<style type="text/css">';
