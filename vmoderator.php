@@ -284,5 +284,5 @@ $options = array(
 	'publicly_queryable' => false,
 	'show_in_admin_status_list' => true,
 	'show_in_admin_all_list'    => true
-	);
-egister_post_status('moderated', $options);
+);
+register_post_status('moderated', $options);
