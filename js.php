@@ -1,6 +1,6 @@
 <?php echo '<script type="text/javascript">
 	objImage = new Image();
-	objImage.src="'.$vms['waitIcon'].'";
+	objImage.src="' . $vms['waitIcon'] . '";
 			function update(matchClass,content){
     var elems = document.getElementsByTagName("*"),i;
     for (i in elems)
@@ -13,7 +13,7 @@
     }
 function loadXMLDoc(post_id, key, action)
 {
-	var text = "<div class=\'waitIcon\'></div><div class=\'waitText flagText\'><div class=\'waitText-left\'></div><div class=\'waitText-text\'>'.$vms['waitText'].'</div><div class=\'waitText-right\'></div>";
+	var text = "<div class=\'waitIcon\'></div><div class=\'waitText flagText\'><div class=\'waitText-left\'></div><div class=\'waitText-text\'>' . $vms['waitText'] . '</div><div class=\'waitText-right\'></div>";
 var xmlhttp;
 if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -34,7 +34,7 @@ xmlhttp.onreadystatechange=function()
 			update("flag-arya-"+post_id, text); 
 	}
   }
-xmlhttp.open("GET","'.$vmpath.'processor.php?action="+action+"&post_id="+post_id+"&key="+key,true);
+xmlhttp.open("GET","' . $vmpath . 'processor.php?action="+action+"&post_id="+post_id+"&key="+key,true);
 xmlhttp.send();
 }
-</script>';?>
+</script>'; ?>
