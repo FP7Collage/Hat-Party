@@ -1,6 +1,6 @@
 <?php
 function default_css() {
-	$vmpath = WP_PLUGIN_URL . '/' . str_replace(basename(__FILE__), "", plugin_basename(__FILE__));
+	$vmpath = VMODR_URL;
 	return <<<CSS
 //////////////////////////////////Start Here/////////////////////////////
 .flag,

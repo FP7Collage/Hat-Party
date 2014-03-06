@@ -29,7 +29,7 @@
                 update("flag-arya-" + post_id, text);
             }
         }
-        xmlhttp.open("GET", "<?= $vmpath ?>processor.php?action=" + action + "&post_id=" + post_id + "&key=" + key, true);
+        xmlhttp.open("GET", "<?= VMODR_URL ?>processor.php?action=" + action + "&post_id=" + post_id + "&key=" + key, true);
         xmlhttp.send();
     }
 </script>

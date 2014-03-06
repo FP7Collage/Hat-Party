@@ -10,11 +10,12 @@ License: GPL2
 */
 /*                       Functions                   */
 $ip = $_SERVER['REMOTE_ADDR'];
-$vmpath = WP_PLUGIN_URL . '/' . str_replace(basename(__FILE__), "", plugin_basename(__FILE__));
-global $vmpath;
+
+define('VMODR_URL',  plugin_dir_url(__FILE__));
+define('VMODR_PATH', plugin_dir_path(__FILE__));
+
 function vm_register() { //Action to be done on plugin activation
-	include (dirname(__FILE__) . "/css.php");
-	$vmpath = WP_PLUGIN_URL . '/' . str_replace(basename(__FILE__), "", plugin_basename(__FILE__));
+	include (VMODR_PATH . "css.php");
 	$defaults = array(
 		//Default Virtual Moderator settings. Can be changed on vModerator settings.
 		'flags2removePost' => '10',
@@ -23,9 +24,9 @@ function vm_register() { //Action to be done on plugin activation
 		'emailAuthor'      => FALSE,
 		'emailAdminText'   => '', //{To write}
 		'emailAuthorText'  => '', //{To write}
-		'postFlagIcon'     => $vmpath . 'images/flag.gif', //{To write}
-		'displayText'      => '{flagged}/{total}, {to go} more to hide', 'waitIcon' => $vmpath . 'images/wait.gif', //{To write}
-		'waitText'         => 'Please wait...', 'postUnflagIcon' => $vmpath . 'images/waving-flag.gif', //{To write}
+		'postFlagIcon'     => VMODR_URL . 'images/flag.gif', //{To write}
+		'displayText'      => '{flagged}/{total}, {to go} more to hide', 'waitIcon' => VMODR_URL . 'images/wait.gif', //{To write}
+		'waitText'         => 'Please wait...', 'postUnflagIcon' => VMODR_URL . 'images/waving-flag.gif', //{To write}
 		'unflagText'       => 'Thank you!',
 		'addContentTop'    => FALSE,
 		'addContentBottom' => TRUE,
@@ -57,10 +58,10 @@ function vm_register() { //Action to be done on plugin activation
 	dbDelta($sql);
 }
 function vm_head() {
-	global $vmpath, $vms;
-	include (dirname(__FILE__) . "/css.php");
+	global $vms;
+	include (VMODR_PATH . "css.php");
 	style();
-	include (dirname(__FILE__) . "/js.php");
+	include (VMODR_PATH . "js.php");
 };
 function content_filter($content) {
 	global $vms;
@@ -105,8 +106,7 @@ function chk_duplicate($pid, $type, $data) {
 	};
 };
 function vms() { //adding the settings page
-	global $vmpath;
-	add_menu_page('vModerator Flag Settings', 'vModerator', 'administrator', 'vm_settings', 'vms_flag', $vmpath . "images/vmicon.gif");
+	add_menu_page('vModerator Flag Settings', 'vModerator', 'administrator', 'vm_settings', 'vms_flag', VMODR_URL . "images/vmicon.gif");
 	add_submenu_page('vm_settings', 'vModerator Flag Settings', 'Settings', 'administrator', 'vm_settings', 'vms_flag');
 	add_submenu_page('vm_settings', 'vModerator Moderation Settings', 'Moderation', 'administrator', 'vm_moderation', 'vms_moderation');
 	add_submenu_page('vm_settings', 'Virtual Moderator Documantation', 'Documentation', 'administrator', 'vm_documentation', 'vm_documentation');
@@ -114,19 +114,19 @@ function vms() { //adding the settings page
 };
 function vms_flag() { //Locate setting page
 	$display = 'flag';
-	include (dirname(__FILE__) . "/vms.php");
+	include (VMODR_PATH . "vms.php");
 };
 function vms_moderation() { //Locate setting page
 	$display = 'moderation';
-	include (dirname(__FILE__) . "/vms.php");
+	include (VMODR_PATH . "vms.php");
 };
 function vm_documentation() { //Locate setting page
 	$display = 'documentation';
-	include (dirname(__FILE__) . "/vms.php");
+	include (VMODR_PATH . "vms.php");
 };
 function vm_uninstall() { //Locate setting page
 	$display = 'uninstallation';
-	include (dirname(__FILE__) . "/vms.php");
+	include (VMODR_PATH . "vms.php");
 };
 function anti_publish() { //Prevent republishing of a spam post
 	global $post, $vms;
@@ -143,7 +143,7 @@ function on_publish($postid) {
 };
 function post_wp_loaded() { //Tasks list after wp is loaded
 	global $vmpath;
-	include (dirname(__FILE__) . "/loaded.php");
+	include (VMODR_PATH . "loaded.php");
 };
 function flag() {
 	global $post, $vms; //Displays the flag option
@@ -232,10 +232,9 @@ function post_classes($classes) { //Sets the post class considering flags
 	return $classes;
 };
 function image_uploader() {
-	global $vmpath;
 	wp_enqueue_script('media-upload');
 	wp_enqueue_script('thickbox');
-	wp_register_script('image-upload', $vmpath . '/upload.js', array('jquery', 'media-upload', 'thickbox'));
+	wp_register_script('image-upload', VMODR_URL . '/upload.js', array('jquery', 'media-upload', 'thickbox'));
 	wp_enqueue_script('image-upload');
 }
 function image_uploader_styles() {
