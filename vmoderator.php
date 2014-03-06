@@ -102,7 +102,7 @@ function chk_duplicate($pid, $type, $data) {
 		};
 	};
 };
-function vms() {dding the settings page
+function vms() { //adding the settings page
 	global $vmpath;
 	add_menu_page('vModerator Flag Settings', 'vModerator', 'administrator', 'vm_settings', 'vms_flag', $vmpath . "images/vmicon.gif");
 	add_submenu_page('vm_settings', 'vModerator Flag Settings', 'Settings', 'administrator', 'vm_settings', 'vms_flag');
