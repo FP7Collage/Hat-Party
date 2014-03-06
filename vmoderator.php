@@ -81,27 +81,19 @@ function excerpt_filter($content) {
 	};
 	return $content;
 };
-function chk_duplicate($pid, $type, $data) {
+function chk_duplicate( $pid, $type, $data ) {
 	global $wpdb;
-	if ($type == "userID") {
-		if ($wpdb->get_var("SELECT id FROM " . $wpdb->prefix . "vmdata WHERE user_id ='" . $data . "' AND post_id='" . $pid . "'")) {
-			return TRUE;
-		} else {
-			return FALSE;
-		};
-	} elseif ($type == "ip") {
-		if ($wpdb->get_var("SELECT id FROM " . $wpdb->prefix . "vmdata WHERE ip='" . $data . "' AND post_id='" . $pid . "'")) {
-			return TRUE;
-		} else {
-			return FALSE;
-		};
-	} elseif ($type == "id") {
-		if ($wpdb->get_var("SELECT ip FROM " . $wpdb->prefix . "vmdata WHERE id='" . $data . "' AND post_id='" . $pid . "'")) {
-			return TRUE;
-		} else {
-			return FALSE;
-		};
-	};
+	$query = '';
+	if ( $type == "userID" )
+		$query = "SELECT id FROM {$wpdb->prefix}vmdata WHERE user_id = %s AND post_id = %s";
+	elseif ( $type == "ip" )
+		$query = "SELECT id FROM {$wpdb->prefix}vmdata WHERE ip = %s AND post_id = %s";
+	elseif ( $type == "id" )
+		$query = "SELECT ip FROM {$wpdb->prefix}vmdata WHERE id = %s AND post_id = %s";
+
+	if ( $query && $wpdb->get_var( $wpdb->prepare( $query, $data, $pid ) )
+		return TRUE;
+	return FALSE;
 };
 function vms() { //adding the settings page
 	add_menu_page('vModerator Flag Settings', 'vModerator', 'administrator', 'vm_settings', 'vms_flag', VMODR_URL . "images/vmicon.gif");
