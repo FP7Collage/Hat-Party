@@ -15,42 +15,44 @@ global $vmpath;
 function vm_register() { //Action to be done on plugin activation
 	include (dirname(__FILE__) . "/css.php");
 	$vmpath = WP_PLUGIN_URL . '/' . str_replace(basename(__FILE__), "", plugin_basename(__FILE__));
-	$defaults = array( //Default Virtual Moderator settings. Can be changed on vModerator settings.
-	'flags2removePost' => '10',
-	'result' => 'moderated',
-	'emailAdmin' => FALSE,
-	'emailAuthor' => FALSE,
-	'emailAdminText' => '', //{To write}
-	'emailAuthorText' => '', //{To write}
-	'postFlagIcon' => $vmpath . 'images/flag.gif', //{To write}
-	'displayText' => '{flagged}/{total}, {to go} more to hide', 'waitIcon' => $vmpath . 'images/wait.gif', //{To write}
-	'waitText' => 'Please wait...', 'postUnflagIcon' => $vmpath . 'images/waving-flag.gif', //{To write}
-	'unflagText' => 'Thank you!',
-	'addContentTop' => FALSE,
-	'addContentBottom' => TRUE,
-	'addExcerptTop' => FALSE,
-	'addExcerptBottom' => TRUE,
-	'traceUser' => TRUE,
-	'traceIP' => FALSE,
-	'traceCookie' => TRUE,
-	'noFlagAdmin' => FALSE,
-	'noFlagEditor' => FALSE,
-	'excCats' => '',
-	'canFlag' => 0,
-	'canUnflag' => 7,
-	'editDieText' => "Sorry, The post has been flagged by visitor as spam. Unable to publish.",
-	'safeUsers' => '',
-	'css' => default_css());
+	$defaults = array(
+		//Default Virtual Moderator settings. Can be changed on vModerator settings.
+		'flags2removePost' => '10',
+		'result'           => 'moderated',
+		'emailAdmin'       => FALSE,
+		'emailAuthor'      => FALSE,
+		'emailAdminText'   => '', //{To write}
+		'emailAuthorText'  => '', //{To write}
+		'postFlagIcon'     => $vmpath . 'images/flag.gif', //{To write}
+		'displayText'      => '{flagged}/{total}, {to go} more to hide', 'waitIcon' => $vmpath . 'images/wait.gif', //{To write}
+		'waitText'         => 'Please wait...', 'postUnflagIcon' => $vmpath . 'images/waving-flag.gif', //{To write}
+		'unflagText'       => 'Thank you!',
+		'addContentTop'    => FALSE,
+		'addContentBottom' => TRUE,
+		'addExcerptTop'    => FALSE,
+		'addExcerptBottom' => TRUE,
+		'traceUser'        => TRUE,
+		'traceIP'          => FALSE,
+		'traceCookie'      => TRUE,
+		'noFlagAdmin'      => FALSE,
+		'noFlagEditor'     => FALSE,
+		'excCats'          => '',
+		'canFlag'          => 0,
+		'canUnflag'        => 7,
+		'editDieText'      => "Sorry, The post has been flagged by visitor as spam. Unable to publish.",
+		'safeUsers'        => '',
+		'css'              => default_css(),
+	);
 	add_option('vms', $defaults);
 	global $wpdb;
 	$table_name = $wpdb->prefix . "vmdata";
 	$sql = "CREATE TABLE " . $table_name . " (
-	  id mediumint(9) NOT NULL AUTO_INCREMENT,
-	  post_id mediumint(9) NOT NULL,
-	  user_id mediumint(9) NOT NULL,
-	  ip tinytext NOT NULL,
-	  UNIQUE KEY id (id)
-	);";
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		post_id mediumint(9) NOT NULL,
+		user_id mediumint(9) NOT NULL,
+		ip tinytext NOT NULL,
+		UNIQUE KEY id (id)
+		);";
 	require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
 	dbDelta($sql);
 }
@@ -152,9 +154,9 @@ function flag() {
 	if ($vms['displayText'] != '') {
 		$content.= '
 		<div class="displayText flagText">
-		<div class="flagText-left"></div>
-		<div class="flagText-text">' . str_replace(array('{flagged}', '{to go}', '{total}'), array($flags, $vms['flags2removePost'] - $flags, $vms['flags2removePost']), $vms['displayText']) . '</div>
-		<div class="flagText-right"></div>
+			<div class="flagText-left"></div>
+			<div class="flagText-text">' . str_replace(array('{flagged}', '{to go}', '{total}'), array($flags, $vms['flags2removePost'] - $flags, $vms['flags2removePost']), $vms['displayText']) . '</div>
+			<div class="flagText-right"></div>
 		</div>';
 	};
 	return $content;
@@ -167,9 +169,9 @@ function flagged() {
 	if ($vms['unflagText'] != '') {
 		$content.= '
 		<div class="unflagText flagText">
-		<div class="unflagText-left"></div>
-		<div class="unflagText-text">' . str_replace(array('{flagged}', '{to go}', '{total}'), array($flags, $vms['flags2removePost'] - $flags, $vms['flags2removePost']), $vms['unflagText']) . '</div>
-		<div class="unflagText-right"></div>
+			<div class="unflagText-left"></div>
+			<div class="unflagText-text">' . str_replace(array('{flagged}', '{to go}', '{total}'), array($flags, $vms['flags2removePost'] - $flags, $vms['flags2removePost']), $vms['unflagText']) . '</div>
+			<div class="unflagText-right"></div>
 		</div>';
 	};
 	return $content;
@@ -273,15 +275,15 @@ add_filter('post_class', 'post_classes');
 $vms = get_option('vms');
 global $vms;
 $options = array(
-	'label' => _x('Moderated', 'post'),
-	'public' => false,
-	'_builtin' => true, /* internal use only. */
+	'label'       => _x('Moderated', 'post'),
+	'public'      => false,
+	'_builtin'    => true, /* internal use only. */
 	'label_count' => _n_noop('Moderated <span class="count">(%s)</span>', 'Moderated <span class="count">(%s)</span>'),
-	'protected' => true,
-	'private' => true,
-	'show_in_admin_all' => true,
+	'protected'   => true,
+	'private'     => true,
+	'show_in_admin_all'  => true,
 	'publicly_queryable' => false,
 	'show_in_admin_status_list' => true,
-	'show_in_admin_all_list' => true
-);
+	'show_in_admin_all_list'    => true
+	);
 egister_post_status('moderated', $options);
