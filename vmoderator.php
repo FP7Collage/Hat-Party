@@ -46,16 +46,14 @@ function vm_register() { //Action to be done on plugin activation
 	);
 	add_option('vms', $defaults);
 	global $wpdb;
-	$table_name = $wpdb->prefix . "vmdata";
-	$sql = "CREATE TABLE " . $table_name . " (
+	$sql = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}vmdata (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
 		post_id mediumint(9) NOT NULL,
 		user_id mediumint(9) NOT NULL,
 		ip tinytext NOT NULL,
 		UNIQUE KEY id (id)
-		);";
-	require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
-	dbDelta($sql);
+	);";
+	$wpdb->query( $sql );
 }
 function vm_head() {
 	global $vms;
