@@ -136,8 +136,7 @@ function on_publish($postid) {
 	global $wpdb, $culevel, $vms;
 	if ($culevel >= $vms['canUnflag']) {
 		delete_post_meta($postid, '_flags');
-		$wpdb->query($wpdb->prepare("DELETE FROM " . $wpdb->prefix . "vmdata
-	WHERE post_id='" . $postid . "'"));
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}vmdata WHERE post_id=%s", $postid ) );
 	};
 };
 function post_wp_loaded() { //Tasks list after wp is loaded

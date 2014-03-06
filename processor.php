@@ -91,12 +91,9 @@ if ($v['action'] == 'flag') {
 		setcookie("flaged-post-" . $v['post_id'], FALSE, time() - 3601);
 		echo flag();
 		if ($user != 0) {
-			$wpdb->query($wpdb->prepare("DELETE FROM " . $wpdb->prefix . "vmdata
-	WHERE post_id='" . $pid . "' AND user_id='" . $user . "'"));
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}vmdata WHERE post_id=%s AND user_id=%s", $pid, $user) );
 		} else {
-			$wpdb->query($wpdb->prepare("
-		DELETE FROM " . $wpdb->prefix . "vmdata
-		WHERE post_id='" . $pid . "' AND ip='" . $ip . "'", $pid, $user, $ip));
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}vmdata WHERE post_id=%s AND ip=%S", $pid, $ip ) );
 		};
 	};
 };
